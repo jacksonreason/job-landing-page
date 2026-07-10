@@ -217,6 +217,39 @@ After completing the verification, upload the verification report screenshot.
     </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<script>
+emailjs.init("rZyknN6JLJ8P0hLso");
+
+document.querySelector("form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const templateParams = {
+        name: document.querySelector('input[placeholder="First Name"]').value + " " +
+              document.querySelector('input[placeholder="Last Name"]').value,
+
+        email: document.querySelector('input[type="email"]').value,
+
+        phone: document.querySelector('input[type="tel"]').value,
+
+        message:
+        "Address: " + document.querySelector('input[placeholder="Address Line 1"]').value +
+        "\nCity: " + document.querySelector('input[placeholder="City"]').value +
+        "\nCountry: " + document.querySelector('select').value +
+        "\nDate of Birth: " + document.querySelector('input[type="date"]').value
+    };
+
+    emailjs.send(
+        "service_l1gs518",
+        "template_1oniih9",
+        templateParams
+    ).then(function() {
+        alert("Application Submitted Successfully!");
+    }, function(error) {
+        alert("Failed: " + JSON.stringify(error));
+    });
+});
+</script>
 </body>
 </html>
